@@ -2,9 +2,9 @@ namespace sensore
 {
     public interface ISensore
     {
-       protected string Type { get; set; }
-       protected bool IsBroken { get; set; }
-       protected bool Activate(string guss);
+       public string Type { get; set; }
+       public bool IsBroken { get; set; }
+       public bool Activate(string guss);
     }
 
 
