@@ -7,7 +7,6 @@ namespace Agants
     {
         public string Type;
 
-       public List<ISensore> WeaknessesSensors;
 
 
 
@@ -15,17 +14,11 @@ namespace Agants
         {
             Type = type;
 
-            WeaknessesSensors = new List<ISensore>{ };
-
-
-        }
-
-        public void AddSensore(ISensore sensore)
-        {
-            WeaknessesSensors.Add(sensore);
-
+        
 
         }
+
+  
         
     }
 }

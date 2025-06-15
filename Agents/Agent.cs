@@ -3,16 +3,19 @@ namespace Agants
 {
     public abstract class Agent
     {
-        public string Type { get; protected set; }
+          public string Rank { get; protected set; }
+        public List<ISensore> weaknessesSensors { get; private set; }
+        public IReadOnlyList<ISensore> Sensors { get; private set; }
+        public List<ISensore> AttachedSensors { get; private set; }
 
-        protected List<ISensore> _weaknessesSensors;
 
-        public IReadOnlyList<ISensore> Sensors => _weaknessesSensors;
-        public Agent(string type)
+        public Agent(string rank)
         {
-            Type = type;
+            Rank = rank;
+            weaknessesSensors = new List<ISensore> { };
+            AttachedSensors = new List<ISensore> { };
 
-            _weaknessesSensors = new List<ISensore> { };
+
 
 
         }
@@ -20,8 +23,30 @@ namespace Agants
 
         public void AddSensore(ISensore sensore)
         {
-            _weaknessesSensors.Add(sensore);
+            weaknessesSensors.Add(sensore);
         }
+
+
+        public bool GetMatching(ISensore newsensore)
+
+        {
+            bool match = false;
+
+            foreach (ISensore ws in weaknessesSensors)
+            {
+
+                match = ws.Activate(newsensore.Type);
+            }
+
+            return match;
+
+
+        }
+
+
+
+
+
 
 
     }
