@@ -3,17 +3,16 @@ namespace Agants
 {
     public abstract class Agent
     {
-       public string Type;
+        public string Type { get; protected set; }
 
-       public List<ISensore> WeaknessesSensors;
+        protected List<ISensore> _weaknessesSensors;
 
-
-
+        public IReadOnlyList<ISensore> Sensors => _weaknessesSensors;
         public Agent(string type)
         {
             Type = type;
 
-            WeaknessesSensors = new List<ISensore> { };
+            _weaknessesSensors = new List<ISensore> { };
 
 
         }
@@ -21,7 +20,7 @@ namespace Agants
 
         public void AddSensore(ISensore sensore)
         {
-            WeaknessesSensors.Add(sensore);
+            _weaknessesSensors.Add(sensore);
         }
 
 
