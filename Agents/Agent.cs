@@ -1,4 +1,4 @@
-namespace models
+namespace Agants
 {
     public abstract class Agent
     {
