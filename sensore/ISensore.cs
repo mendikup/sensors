@@ -1,7 +1,11 @@
-
-public interface ISensors
+namespace sensore
 {
-    string Name { get; }
-    bool IsBroken { get; }
-    bool Activate(string[] weaknes);
+    public interface ISensore
+    {
+       protected string Type { get; set; }
+       protected bool IsBroken { get; set; }
+       protected bool Activate(string guss);
+    }
+
+
 }
