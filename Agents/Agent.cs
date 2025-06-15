@@ -11,7 +11,8 @@ namespace models
         public Agent(string type)
         {
             Type = type;
-             WeaknessesSensors = new List<string> { };
+
+            WeaknessesSensors = new List<string> { };
 
 
         }
