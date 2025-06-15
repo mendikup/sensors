@@ -1,10 +1,11 @@
+using sensore;
 namespace Agants
 {
     public abstract class Agent
     {
-        public string Type;
+       public string Type;
 
-        public List<string> WeaknessesSensors;
+       public List<ISensore> WeaknessesSensors;
 
 
 
@@ -12,10 +13,17 @@ namespace Agants
         {
             Type = type;
 
-            WeaknessesSensors = new List<string> { };
+            WeaknessesSensors = new List<ISensore> { };
 
 
         }
+
+
+        public void AddSensore(ISensore sensore)
+        {
+            WeaknessesSensors.Add(sensore);
+        }
+
 
     }
 }
