@@ -2,11 +2,11 @@ namespace Agants
 {
     public abstract class Agent
     {
-        string Type;
+        public string Type;
 
-        List<string> WeaknessesSensors;
-        
-        
+        public List<string> WeaknessesSensors;
+
+
 
         public Agent(string type)
         {
@@ -16,6 +16,6 @@ namespace Agants
 
 
         }
-        
+
     }
 }
