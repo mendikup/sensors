@@ -3,14 +3,14 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace sensore
 {
-    public class SimpleSensore : ISensore
+    public class Audio : ISensore
     {
 
         public string Type { get; set; }
         public bool IsBroken { get; set; }
 
 
-        public SimpleSensore(string type)
+        public Audio(string type)
         {
             Type = type;
             IsBroken = false;
