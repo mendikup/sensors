@@ -10,9 +10,9 @@ namespace sensore
         public bool IsBroken { get; set; }
 
 
-        public Audio(string type)
+        public Audio()
         {
-            Type = type;
+            
             IsBroken = false;
 
         }
