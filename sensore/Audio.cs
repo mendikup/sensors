@@ -12,7 +12,7 @@ namespace sensore
 
         public Audio()
         {
-            
+            Type = "Audio";
             IsBroken = false;
 
         }
