@@ -3,9 +3,8 @@ namespace Agants
 {
     public abstract class Agent
     {
-          public string Rank { get; protected set; }
+        public string Rank { get; protected set; }
         public List<ISensore> weaknessesSensors { get; private set; }
-        public IReadOnlyList<ISensore> Sensors { get; private set; }
         public List<ISensore> AttachedSensors { get; private set; }
 
 
