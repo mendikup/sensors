@@ -17,9 +17,9 @@ namespace Game
             ISensore BSensore3 = new Audio("base");
 
 
-            agent.AddSensore(BSensore1);
-            agent.AddSensore(BSensore2);
-            agent.AddSensore(BSensore3);
+            agent.AddWeakSensore(BSensore1);
+            agent.AddWeakSensore(BSensore2);
+            agent.AddWeakSensore(BSensore3);
 
 
             int trueGuesses = 0;
@@ -33,6 +33,8 @@ namespace Game
             {
                 Console.WriteLine("Enter your guess:");
                 string guess = Console.ReadLine();
+
+                
 
                 // loop through the weaknesses Sensors list to find a match between the gusse and one of the sensors
                 foreach (ISensore s in leftToCheck)
