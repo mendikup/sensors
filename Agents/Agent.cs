@@ -20,10 +20,18 @@ namespace Agants
         }
 
 
-        public void AddSensore(ISensore sensore)
+        public void AddWeakSensore(ISensore sensore)
         {
             weaknessesSensors.Add(sensore);
         }
+
+        public void AttachSensore(ISensore sensore)
+        {
+            weaknessesSensors.Add(sensore);
+        }
+
+
+
 
 
         public bool GetMatching(ISensore newsensore)
