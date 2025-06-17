@@ -4,7 +4,7 @@ namespace sensore
     {
        public string Type { get; set; }
        public bool IsBroken { get; set; }
-       public bool Activate(string guss);
+       public bool Activate(ISensore sensore);
     }
 
 

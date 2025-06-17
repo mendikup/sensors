@@ -17,7 +17,7 @@ namespace sensore
             IsBroken = false;
         }
 
-        public bool Activate(string guess)
+        public bool Activate(ISensore sensore)
         {
 
             if (IsBroken)
@@ -34,7 +34,7 @@ namespace sensore
                 IsBroken = true;
             }
 
-            return this.Type == guess;
+            return this.Type == sensore.Type;
 
 
         }
