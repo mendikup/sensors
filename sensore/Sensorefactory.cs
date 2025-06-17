@@ -18,7 +18,7 @@ namespace sensore
                     return new Pulse();
 
                 default:
-                    return new Audio();
+                    return null;
 
             }
         }
