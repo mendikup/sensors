@@ -30,7 +30,7 @@ namespace sensore
 
             if (_ActivationCount >= _MaxActivation)
             {
-
+              
                 IsBroken = true;
             }
 

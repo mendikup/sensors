@@ -34,21 +34,21 @@ namespace Agants
 
 
 
-        public bool GetMatching(ISensore newsensore)
+        // public bool GetMatching(ISensore newsensore)
 
-        {
-            bool match = false;
+        // {
+        //     bool match = false;
 
-            foreach (ISensore ws in weaknessesSensors)
-            {
+        //     foreach (ISensore ws in weaknessesSensors)
+        //     {
 
-                match = ws.Activate(newsensore.Type);
-            }
+        //         match = ws.Activate(newsensore.Type);
+        //     }
 
-            return match;
+        //     return match;
 
 
-        }
+        // }
 
 
 

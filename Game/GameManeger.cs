@@ -7,7 +7,6 @@ namespace Game
     public static class GameManeger
     {
         public static void Start()
-    
         {
             SimpleAgent agent = new SimpleAgent("mac");
 
@@ -16,43 +15,69 @@ namespace Game
             ISensore BSensore2 = Sensorfactory.CreateSensor("Audio");
             ISensore BSensore3 = Sensorfactory.CreateSensor("Pulse");
 
-
-            agent.AddWeakSensore(BSensore1);
-            agent.AddWeakSensore(BSensore2);
             agent.AddWeakSensore(BSensore3);
-
+            agent.AddWeakSensore(BSensore2);
+            agent.AddWeakSensore(BSensore1);
 
             int trueGuesses = 0;
 
-            //creating a copy of Weaknesses senssors list so we can remove sensor we already check to prevent duplication
-            List<ISensore> leftToCheck =new List<ISensore>( agent.weaknessesSensors);
-
-
+            // creating a copy of Weaknesses sensors list so we can remove matched sensors
+            List<ISensore> leftToCheck = new List<ISensore>(agent.weaknessesSensors);
 
             while (trueGuesses < agent.weaknessesSensors.Count)
             {
                 Console.WriteLine("Enter your guess:");
                 string guess = Console.ReadLine();
 
-                
+                // Try to reuse existing sensor
+                ISensore existing = agent.AttachedSensors.FirstOrDefault(s => s.Type == guess);
+                ISensore sensore;
 
-                // loop through the weaknesses Sensors list to find a match between the gusse and one of the sensors
+                if (existing != null)
+                {
+                    sensore = existing;
+
+                    if (!existing.IsBroken)
+                        Console.WriteLine(" Re-using existing sensor.");
+                }
+                else
+                {
+                    sensore = Sensorfactory.CreateSensor(guess);
+                    agent.AttachedSensors.Add(sensore);
+                    Console.WriteLine(" New sensor created and attached.");
+                }
+
+                // If the sensor is broken (like Pulse after 3 activations), skip it
+                if (sensore.IsBroken)
+                {
+                    Console.WriteLine(" This sensor is broken and was not activated.");
+                    continue; // 
+                }
+
+                // Try to match with any remaining weakness
+                bool matchedThisTurn = false;
+
                 foreach (ISensore s in leftToCheck)
                 {
-                    bool match = s.Activate(guess);
+                    bool match = sensore.Activate(s);
                     if (match)
                     {
+                        Console.WriteLine(" Match!");
                         trueGuesses++;
-                        leftToCheck.Remove(s);
-                        break; //there is no need to check anymore
+                        leftToCheck.Remove(s); // remove matched weakness
+                        matchedThisTurn = true;
+                        break;
                     }
                 }
 
-                Console.WriteLine($"you guessed {trueGuesses}/{agent.weaknessesSensors.Count()} correct sensors ");
-                System.Console.WriteLine();
-            }
+                if (!matchedThisTurn)
+                {
+                    Console.WriteLine(" No match this time.");
+                }
 
-            Console.WriteLine("the agent was Exposed!!!");
+                Console.WriteLine($"You guessed {trueGuesses}/{agent.weaknessesSensors.Count} correct sensors");
+                Console.WriteLine();
+            }
         }
     }
 }
