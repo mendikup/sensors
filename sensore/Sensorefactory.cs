@@ -14,11 +14,11 @@ namespace sensore
                     return new Audio();
 
 
-                case "pulse":
+                case "Pulse":
                     return new Pulse();
 
                 default:
-                    return null;
+                    return new Audio();
 
             }
         }
