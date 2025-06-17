@@ -17,9 +17,9 @@ namespace sensore
 
         }
 
-        public bool Activate(string guss)
+        public bool Activate(ISensore sensore)
         {
-            return this.Type == guss;
+            return this.Type == sensore.Type;
         }
 
 
