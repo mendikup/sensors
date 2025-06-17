@@ -12,9 +12,9 @@ namespace Game
             SimpleAgent agent = new SimpleAgent("mac");
 
             // creating simple sensors for example
-            ISensore BSensore1 = new Audio("thermal");
-            ISensore BSensore2 = new Audio("base");
-            ISensore BSensore3 = new Audio("base");
+            ISensore BSensore1 = Sensorfactory.CreateSensor("Audio");
+            ISensore BSensore2 = Sensorfactory.CreateSensor("Audio");
+            ISensore BSensore3 = Sensorfactory.CreateSensor("Pulse");
 
 
             agent.AddWeakSensore(BSensore1);
