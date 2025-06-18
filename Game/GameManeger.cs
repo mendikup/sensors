@@ -47,28 +47,15 @@ namespace Game
                     Console.WriteLine(" New sensor created and attached.");
                 }
 
-                // If the sensor is broken (like Pulse after 3 activations), skip it
+                // check if the sensor is broken, if so we skip it
                 if (sensore.IsBroken)
                 {
                     Console.WriteLine(" This sensor is broken and was not activated.");
-                    continue; // 
+                    continue;
                 }
 
-                // Try to match with any remaining weakness
-                bool matchedThisTurn = false;
-
-                foreach (ISensore s in leftToCheck)
-                {
-                    bool match = sensore.Activate(s);
-                    if (match)
-                    {
-                        Console.WriteLine(" Match!");
-                        trueGuesses++;
-                        leftToCheck.Remove(s); // remove matched weakness
-                        matchedThisTurn = true;
-                        break;
-                    }
-                }
+                // try to match this sensor with one of the remaining weaknesses
+                bool matchedThisTurn = TryMatchSensor(sensore, leftToCheck, ref trueGuesses);
 
                 if (!matchedThisTurn)
                 {
@@ -78,6 +65,27 @@ namespace Game
                 Console.WriteLine($"You guessed {trueGuesses}/{agent.weaknessesSensors.Count} correct sensors");
                 Console.WriteLine();
             }
+
+            Console.WriteLine("the Agent was exposed!!");
+        }
+
+        // this method checks if sensor matches any of the weaknesses
+        // if match found, we remove it and add to trueGuesses
+        private static bool TryMatchSensor(ISensore sensor, List<ISensore> weaknesses, ref int trueGuesses)
+        {
+            foreach (ISensore s in weaknesses)
+            {
+                bool isMatch = sensor.Activate(s);
+                if (isMatch)
+                {
+                    Console.WriteLine(" Match!");
+                    weaknesses.Remove(s); // remove matched sensor so we don’t count it again
+                    trueGuesses++; // increase number of successful guesses
+                    return true; // we found a match, no need to check more
+                }
+            }
+
+            return false; // no match found
         }
     }
 }
