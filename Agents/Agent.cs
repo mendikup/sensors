@@ -27,7 +27,7 @@ namespace Agants
 
         public void AttachSensore(ISensore sensore)
         {
-            weaknessesSensors.Add(sensore);
+             AttachedSensors.Add(sensore);
         }
 
 
