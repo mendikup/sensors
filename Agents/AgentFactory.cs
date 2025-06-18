@@ -17,7 +17,7 @@ namespace Agants
 
                     return fooutSoldier;
 
-                    break;
+                    
 
                 case "squad leader":
 
@@ -29,7 +29,7 @@ namespace Agants
                     squadLeader.AddWeakSensore(Sensorfactory.CreateSensor("Audio"));
 
                     return squadLeader;
-                    break;
+                
 
                 default:
 
