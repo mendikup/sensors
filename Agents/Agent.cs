@@ -3,16 +3,21 @@ namespace Agants
 {
     public abstract class Agent
     {
-        public string Rank { get; protected set; }
+        public string Rank { get; private set; }
+
+        public int CurrentTurn { get; private set; }
         public List<ISensore> weaknessesSensors { get; private set; }
         public List<ISensore> AttachedSensors { get; private set; }
 
 
-        public Agent(string rank)
+        public Agent()
         {
-            Rank = rank;
+
+            Rank = "";
             weaknessesSensors = new List<ISensore> { };
             AttachedSensors = new List<ISensore> { };
+            CurrentTurn = 0;
+
 
 
 
@@ -27,7 +32,12 @@ namespace Agants
 
         public void AttachSensore(ISensore sensore)
         {
-             AttachedSensors.Add(sensore);
+            AttachedSensors.Add(sensore);
+        }
+
+        public virtual void OnTurnPassed()
+        {
+            CurrentTurn++;
         }
 
 
