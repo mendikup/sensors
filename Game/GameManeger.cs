@@ -12,7 +12,7 @@ namespace Game
 
             // creating simple sensors for example
             ISensore BSensore1 = Sensorfactory.CreateSensor("Audio");
-            ISensore BSensore2 = Sensorfactory.CreateSensor("Audio");
+            ISensore BSensore2 = Sensorfactory.CreateSensor("Pulse");
             ISensore BSensore3 = Sensorfactory.CreateSensor("Pulse");
 
             agent.AddWeakSensore(BSensore3);
@@ -27,57 +27,76 @@ namespace Game
             while (trueGuesses < agent.weaknessesSensors.Count)
             {
                 Console.WriteLine("Enter your guess:");
-                string guess = Console.ReadLine();
+                string guess = Console.ReadLine().Trim();  // we trim to clean spaces
 
-                // Try to reuse existing sensor
-                ISensore existing = agent.AttachedSensors.FirstOrDefault(s => s.Type == guess);
-                ISensore sensore;
-
-                if (existing != null)
-                {
-                    sensore = existing;
-
-                    if (!existing.IsBroken)
-                        Console.WriteLine(" Re-using existing sensor.");
-                }
-                else
-                {
-                    sensore = Sensorfactory.CreateSensor(guess);
-                    agent.AttachedSensors.Add(sensore);
-                    Console.WriteLine(" New sensor created and attached.");
-                }
-
-                // If the sensor is broken (like Pulse after 3 activations), skip it
-                if (sensore.IsBroken)
-                {
-                    Console.WriteLine(" This sensor is broken and was not activated.");
-                    continue; // 
-                }
-
-                // Try to match with any remaining weakness
                 bool matchedThisTurn = false;
 
-                foreach (ISensore s in leftToCheck)
+                // get all sensors of that type that are not broken
+                var candidates = agent.AttachedSensors
+                                      .Where(s => s.Type == guess && !s.IsBroken)
+                                      .ToList();
+
+                // go through existing (non-broken) sensors first
+                foreach (var sensor in candidates)
                 {
-                    bool match = sensore.Activate(s);
-                    if (match)
+                    Console.WriteLine(" Re-using existing sensor.");
+
+                    if (TryMatchSensor(sensor, leftToCheck, ref trueGuesses))
                     {
-                        Console.WriteLine(" Match!");
-                        trueGuesses++;
-                        leftToCheck.Remove(s); // remove matched weakness
                         matchedThisTurn = true;
                         break;
                     }
+
+                    if (sensor.IsBroken)
+                    {
+                        Console.WriteLine(" This sensor is now broken.");
+                    }
                 }
 
+
+                // if no match found, create a new sensor and try again
                 if (!matchedThisTurn)
                 {
-                    Console.WriteLine(" No match this time.");
+                    ISensore newSensor = Sensorfactory.CreateSensor(guess);
+                    agent.AttachedSensors.Add(newSensor);
+                    Console.WriteLine(" New sensor created and attached.");
+
+                    if (TryMatchSensor(newSensor, leftToCheck, ref trueGuesses))
+                    {
+                        matchedThisTurn = true;
+                    }
+
+
+
+
+                    if (!matchedThisTurn)
+                    {
+                        Console.WriteLine(" No match this time.");
+                    }
                 }
 
                 Console.WriteLine($"You guessed {trueGuesses}/{agent.weaknessesSensors.Count} correct sensors");
                 Console.WriteLine();
             }
+        }
+
+        // try to match a sensor against the remaining weaknesses
+        // if match found  remove it and increase trueGuesses
+        private static bool TryMatchSensor(ISensore sensor, List<ISensore> weaknesses, ref int trueGuesses)
+        {
+            foreach (ISensore s in weaknesses)
+            {
+                bool isMatch = sensor.Activate(s);
+                if (isMatch)
+                {
+                    Console.WriteLine(" Match!");
+                    weaknesses.Remove(s); // remove matched weakness
+                    trueGuesses++; // count the success
+                    return true;
+                }
+            }
+
+            return false; // no match found
         }
     }
 }
