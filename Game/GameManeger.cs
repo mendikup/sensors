@@ -8,7 +8,7 @@ namespace Game
     {
         public static void Start()
         {
-            SimpleAgent agent = new SimpleAgent("mac");
+            Footsoldier agent = new Footsoldier();
 
             // creating simple sensors for example
             ISensore BSensore1 = Sensorfactory.CreateSensor("Audio");
