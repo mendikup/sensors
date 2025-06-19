@@ -7,20 +7,13 @@ namespace Agants
 
         public int CurrentTurn { get; private set; }
         public List<ISensore> weaknessesSensors { get; private set; }
-        public List<ISensore> AttachedSensors { get; private set; }
-
 
         public Agent()
         {
 
             Rank = "";
             weaknessesSensors = new List<ISensore> { };
-            AttachedSensors = new List<ISensore> { };
             CurrentTurn = 0;
-
-
-
-
 
         }
 
@@ -30,15 +23,8 @@ namespace Agants
             weaknessesSensors.Add(sensore);
         }
 
-        public void AttachSensore(ISensore sensore)
-        {
-            AttachedSensors.Add(sensore);
-        }
-
-        public virtual void OnTurnPassed( ref int trueGuesses, List<ISensore> leftToCheck)
-        {
-            
-        }
+        public virtual void OnTurnPassed( ){}
+       
 
 
 
