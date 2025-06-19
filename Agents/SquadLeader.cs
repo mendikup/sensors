@@ -25,14 +25,14 @@ namespace Agants
                 var attackedSensor = AttachedSensors[index];
 
                 // Disable the sensor (does not remove it)
-                if (attackedSensor.CanBreak)
+                if (attackedSensor.CanBreak())
                 {
                     attackedSensor.IsBroken = true;
                     Console.WriteLine(" This sensor is now broken.");
                 }
                 Console.WriteLine($"Counterattack! {attackedSensor.Type} sensor was disabled.");
 
-                // If the removed sensor was previously matched, re-add it to weaknesses
+                // If the Attachd sensor was previously matched, re-add it to weaknesses
                 var matchedWeakness = weaknessesSensors
                     .FirstOrDefault(w => w.Type == attackedSensor.Type && !leftToCheck.Contains(w));
 
@@ -52,4 +52,4 @@ namespace Agants
 
 
 
-}
+

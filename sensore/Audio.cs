@@ -22,6 +22,8 @@ namespace sensore
             return this.Type == sensore.Type;
         }
 
+        public bool CanBreak() => false;
+
 
 
 
