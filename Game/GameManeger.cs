@@ -76,9 +76,9 @@ namespace Game
                         }
                     }
 
+                    agent.OnTurnPassed(ref trueGuesses,leftToCheck);
                     Console.WriteLine($"You guessed {trueGuesses}/{agent.weaknessesSensors.Count} correct sensors");
                     Console.WriteLine();
-                    agent.OnTurnPassed(ref trueGuesses,leftToCheck);
                 }
 
                 Console.WriteLine($"the agent{agent.Rank} was exposed and now you continu to the next level");
@@ -90,15 +90,15 @@ namespace Game
 
         // try to match a sensor against the remaining weaknesses
         // if match found  remove it and increase trueGuesses
-        private static bool TryMatchSensor(ISensore sensor, List<ISensore> weaknesses, ref int trueGuesses)
+        private static bool TryMatchSensor(ISensore sensor, List<ISensore> leftToCheck, ref int trueGuesses)
         {
-            foreach (ISensore s in weaknesses)
+            foreach (ISensore s in leftToCheck)
             {
                 bool isMatch = sensor.Activate(s);
                 if (isMatch)
                 {
                     Console.WriteLine(" Match!");
-                    weaknesses.Remove(s); // remove matched weakness
+                    leftToCheck.Remove(s); // remove matched weakness
                     trueGuesses++; // count the success
                     return true;
                 }
