@@ -4,9 +4,9 @@ namespace sensore
     {
         public string Type { get; set; }
 
-        public bool IsBroken { get; set; }
+        public bool IsActive { get; set; }
 
-        private int _ActivationCount = 0;
+        public int _ActivationCount { get; set; }
 
         private const int _MaxActivation = 3;
 
@@ -14,32 +14,24 @@ namespace sensore
         public Pulse()
         {
             Type = "Pulse";
-            IsBroken = false;
+            IsActive = false;
+            _ActivationCount = 0;
         }
 
         public bool Activate(ISensore sensore)
         {
 
-            if (IsBroken)
-            {
-                return false;
-
-            }
+        
 
             _ActivationCount++;
 
-            if (_ActivationCount >= _MaxActivation)
-            {
-
-                IsBroken = true;
-            }
+          
 
             return this.Type == sensore.Type;
 
 
         }
         
-        public bool CanBreak() => true;
 
     }
 

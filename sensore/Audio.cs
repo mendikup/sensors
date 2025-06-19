@@ -7,22 +7,25 @@ namespace sensore
     {
 
         public string Type { get; set; }
-        public bool IsBroken { get; set; }
+        public bool IsActive { get; set; }
 
 
         public Audio()
         {
             Type = "Audio";
-            IsBroken = false;
+            IsActive = false;
 
         }
 
         public bool Activate(ISensore sensore)
         {
+            IsActive = true;
+
             return this.Type == sensore.Type;
+
         }
 
-        public bool CanBreak() => false;
+       
 
 
 
