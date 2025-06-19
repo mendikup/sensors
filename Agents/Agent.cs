@@ -35,9 +35,9 @@ namespace Agants
             AttachedSensors.Add(sensore);
         }
 
-        public virtual void OnTurnPassed()
+        public virtual void OnTurnPassed( ref int trueGuesses, List<ISensore> leftToCheck)
         {
-            CurrentTurn++;
+            
         }
 
 
